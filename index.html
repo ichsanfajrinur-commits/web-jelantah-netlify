@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>JelantahKu - Netlify</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f4f6f9; font-family: sans-serif; }
+        .mobile-container {
+            max-width: 480px;
+            margin: 0 auto;
+            background: #ffffff;
+            min-height: 100vh;
+            box-shadow: 0 0 15px rgba(0,0,0,0.05);
+        }
+        .header-app {
+            background: #198754;
+            color: white;
+            padding: 20px;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="mobile-container">
+    <div class="header-app text-center">
+        <h4 class="mb-1 fw-bold">JelantahKu Cloud</h4>
+        <small>Sistem Pengumpulan Minyak Jelantah Online</small>
+    </div>
+
+    <div class="p-3">
+        <!-- Kotak Tes Koneksi Backend Netlify -->
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-body text-center">
+                <h6 class="fw-bold mb-3">Tes Fungsi Serverless Netlify</h6>
+                <button onclick="cekBackend()" class="btn btn-success w-100 fw-bold py-2 mb-2">Panggil Backend</button>
+                <p id="pesanBackend" class="text-muted small mb-0">Klik tombol di atas untuk mengetes koneksi.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Fungsi untuk memanggil backend (netlify/functions/halo.js)
+    async function cekBackend() {
+        const teksPesan = document.getElementById('pesanBackend');
+        teksPesan.innerText = "Menghubungkan ke server...";
+        
+        try {
+            let response = await fetch('/.netlify/functions/halo');
+            let data = await response.json();
+            teksPesan.innerText = "Respon Berhasil: " + data.pesan;
+            teksPesan.className = "text-success small fw-bold mb-0";
+        } catch (error) {
+            teksPesan.innerText = "Gagal terhubung ke backend.";
+            teksPesan.className = "text-danger small fw-bold mb-0";
+        }
+    }
+</script>
+
+</body>
+</html>
